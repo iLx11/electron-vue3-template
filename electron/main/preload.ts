@@ -64,6 +64,16 @@ const getDirPath = async () => {
   return await ipcRenderer.invoke('select-dir')
 }
 
+/********************************************************************************
+ * @brief: Pinia store 设置主动更改同步
+ * @param {object} obj 设置的对象
+ * @return {*}
+ ********************************************************************************/
+const setConfigStore = (obj: object) => {
+  // console.log(obj)
+  ipcRenderer.send('store-set', obj)
+}
+
 
 contextBridge.exposeInMainWorld('myApi', {
   setItem,
