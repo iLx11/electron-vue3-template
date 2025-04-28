@@ -89,6 +89,7 @@ contextBridge.exposeInMainWorld('myApi', {
   getImgPath,
   getFilePath,
   getDirPath,
+  setConfigStore,
   // Pinia store 设置被动同步监听
   storeChangeListen: (callbacka) =>
     ipcRenderer.on('store-get', (event, data) => {
