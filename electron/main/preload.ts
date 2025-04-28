@@ -1,5 +1,17 @@
 const { contextBridge, ipcRenderer } = require('electron')
 
+const setItem = (name: string, item: string) => {
+  ipcRenderer.send('set-item', name, item)
+}
+
+const getItem = async (name: string) => {
+  return await ipcRenderer.invoke('get-item', name)
+}
+
+const delItem = (name: string) => {
+  ipcRenderer.send('del-item', name)
+}
+
 // 打开新窗口
 const createNewWindow = (optionObj: object, configObj: object) => {
   ipcRenderer.send('window-create', optionObj, configObj)
@@ -54,6 +66,9 @@ const getDirPath = async () => {
 
 
 contextBridge.exposeInMainWorld('myApi', {
+  setItem,
+  getItem,
+  delItem,
   minimizeWindow,
   maximizeWindow,
   setWindowOnTop,

@@ -12,9 +12,22 @@ const path = require('path')
 
 import { windowControlListener } from '../controller/windowControl'
 import CreateWindow from '../controller/createWindow'
+import { setItem, getItem, delItem } from '../controller/storage'
 
 // 窗口监听
 windowControlListener()
+
+ipcMain.on('set-item', (event, name: string, item: string) => {
+  setItem(name, item)
+})
+
+ipcMain.on('del-item', (event, name: string) => {
+  delItem(name)
+})
+
+ipcMain.handle('get-item', async (event, name: string) => {
+  return await getItem(name)
+})
 
 // 创建其他窗口
 ipcMain.on('window-create', (event, optionObj: object, configObj: object) => {
