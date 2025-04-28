@@ -8,8 +8,8 @@ const win = window as any
 const curOnTop = ref<boolean>(false)
 const curMaxState = ref<boolean>(false)
 let restoreSize = {}
-// 置顶图标颜色
-const rotate = ref<string>('contrast(0)')
+// 置顶图标角度
+const rotate = ref<string>('rotate(0)')
 
 // let isMac = ref<boolean>(os.platform() == 'darwin')
 

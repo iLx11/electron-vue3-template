@@ -2,6 +2,9 @@
 import { onMounted } from 'vue'
 import WindowTitle from '../components/tools/WindowTitle.vue'
 import { XBox } from '@/utils/xBox/xBox.js'
+import { useConfigStore } from '@/stores/configStore'
+
+const configStore = useConfigStore()
 
 const win = window as any
 onMounted(() => {
@@ -11,6 +14,25 @@ onMounted(() => {
     },
   })
 })
+
+const windowListener = () => {
+  // 主页面监听
+  win.myApi.storeChangeListen((objData: object) => {
+    // console.info('keyConfigPage listening')
+    const keys = Object.keys(objData)
+    for (let key of keys) {
+      // 设置对应 store 的
+      configStore[
+        `set${key.replace(key.charAt(0), key.charAt(0).toUpperCase())}`
+      ](objData[key])
+    }
+    // console.info(configStore.curScreen)
+  })
+  // 获取 配置的索引
+  win.myApi.setConfigStore({
+    get: 'xxxxxx',
+  })
+}
 </script>
 
 <template>
